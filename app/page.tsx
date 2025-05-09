@@ -19,7 +19,7 @@ export default function Home() {
           {images.map((src, index) => (
             <div key={index} className="relative overflow-hidden">
               <div className="relative aspect-[4/3]">
-                <Image src={src} alt={`記憶 ${index + 1}`} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover" priority={index < 6} />
+                <Image src={src} alt={`記憶 ${index + 1}`} width={1024} height={1024} />
               </div>
             </div>
           ))}
