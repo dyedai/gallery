@@ -4,7 +4,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ParticleImage } from "../components/particle-image";
 import { X } from "lucide-react";
-import { AnimatedHeadline } from "../components/AnimatedHeadline";
 import { TypingText } from "../components/TypingText";
 
 // 画像データの配列（プレースホルダー画像を使用）
@@ -18,17 +17,13 @@ export default function Home() {
   const [selectedImage, setSelectedImage] = useState<null | (typeof images)[0]>(null);
 
   return (
-    <main className="w-full min-h-screen bg-white text-black font-light relative">
-      <div className="w-full flex justify-end pr-6 pt-6 text-xl text-gray-400 font-mono">35.6762° N, 139.6503° E</div>
-      <div className="w-full flex justify-end pr-6 pt-6 text-xl text-gray-400 font-mono">Tokyo, Japan</div>
+    <main className="w-full min-h-screen bg-[#eeeeee] text-black font-light relative">
+      <div className="w-full flex justify-end pr-6 pt-6 text-xl text-black">35.6762° N, 139.6503° E</div>
+      <div className="w-full flex justify-end pr-6 pt-6 text-xl text-black">Tokyo, Japan</div>
 
       {/* ヘッダー - 左上に配置 */}
-      <header className="pt-16 pl-16 pb-24 md:w-2/3">
-        <motion.h1 initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-6xl font-dela mb-12 tracking-tight">
-          記憶によって形成される風景
-        </motion.h1>
-
-        {/* <AnimatedHeadline text="記憶によって形成される風景" className="text-5xl md:text-6xl font-dela mb-12" /> */}
+      <header className="pt-16 pl-2 md:pl-16 pb-24 md:w-2/3">
+        <div className="font-hina md:text-9xl mb-12 text-4xl">記憶、音、光</div>
 
         <TypingText
           textArray={[
@@ -42,8 +37,8 @@ export default function Home() {
       </header>
 
       {/* ギャラリーセクション */}
-      <section className="max-w-7xl mx-auto px-16 pb-32">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+      <section className="max-w-7xl mx-auto px-4 pb-32">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1">
           {images.map((image) => (
             <motion.div
               key={image.id}

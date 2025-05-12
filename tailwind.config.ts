@@ -6,6 +6,7 @@ module.exports = {
       fontFamily: {
         inter: ["var(--font-inter)", "sans-serif"],
         dela: ["var(--font-dela)", "sans-serif"],
+        hina: ["var(--font-hina)", "serif"],
       },
       colors: {
         memory: {
