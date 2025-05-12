@@ -44,7 +44,7 @@ export default function Home() {
               onClick={() => setSelectedImage(image)}
             >
               <div className="aspect-square relative cursor-pointer">
-                <Image src={image.src || "/placeholder.svg"} alt={image.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <Image src={image.src} alt={image.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-500" />
               </div>
               <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -69,7 +69,7 @@ export default function Home() {
               <X size={24} />
             </button>
 
-            <div className="max-w-4xl max-h-[80vh] relative" onClick={(e) => e.stopPropagation()}>
+            <div className="max-w-4xl relative" onClick={(e) => e.stopPropagation()}>
               <ParticleImage src={selectedImage.src} alt={selectedImage.title} />
             </div>
           </motion.div>

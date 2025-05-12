@@ -158,7 +158,7 @@ export function ParticleImage({ src, alt }: ParticleImageProps) {
       // 一定時間後に実際の画像を表示するタイマーを設定
       animationCompleteTimeoutRef.current = setTimeout(() => {
         setShowRealImage(true);
-      }, 4000); // 4秒後に画像を表示
+      }, 3500); // 画像表示までの遅延
     };
 
     return () => {
@@ -212,40 +212,31 @@ export function ParticleImage({ src, alt }: ParticleImageProps) {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="relative w-full flex justify-center items-center">
-      {/* パーティクルアニメーション用キャンバス */}
-      <AnimatePresence>
-        {!showRealImage && (
-          <motion.canvas
-            ref={canvasRef}
-            width={dimensions.width}
-            height={dimensions.height}
-            className="mx-auto"
-            style={{ position: "absolute", zIndex: 10 }}
-            aria-label={alt}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* 実際の画像 */}
-      <AnimatePresence>
-        {showRealImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5 }}
-            className="mx-auto"
-            style={{
-              width: dimensions.width,
-              height: dimensions.height,
-              position: "relative",
-            }}
-          >
-            <Image src={src || "/placeholder.svg"} alt={alt} width={dimensions.width} height={dimensions.height} className="mx-auto" style={{ objectFit: "contain" }} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div style={{ width: dimensions.width, height: dimensions.height, position: "relative" }}>
+        {/* パーティクルの作成 */}
+        <AnimatePresence>
+          {!showRealImage && (
+            <motion.canvas
+              ref={canvasRef}
+              width={dimensions.width}
+              height={dimensions.height}
+              className="w-full h-full"
+              aria-label={alt}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+              style={{ display: "block", position: "absolute", top: 0, left: 0 }}
+            />
+          )}
+        </AnimatePresence>
+        {/* 実画像 */}
+        <AnimatePresence>
+          {showRealImage && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5 }} className="w-full h-full" style={{ position: "absolute", top: 0, left: 0 }}>
+              <Image src={src} alt={alt} width={dimensions.width} height={dimensions.height} className="w-full h-full object-cover" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </motion.div>
   );
 }
