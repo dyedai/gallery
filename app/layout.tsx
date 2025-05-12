@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Dela_Gothic_One } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+});
+
+const delaGothicOne = Dela_Gothic_One({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+  variable: "--font-dela",
 });
 
 export const metadata: Metadata = {
@@ -19,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className={inter.variable}>
+    <html lang="ja" className={`${inter.variable} ${delaGothicOne.variable}`}>
       <body className="bg-white text-gray-800">{children}</body>
     </html>
   );
