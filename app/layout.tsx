@@ -34,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" className={`${inter.variable} ${hinaMincho.variable} ${delaGothicOne.variable}`}>
-      <body className="bg-white text-gray-800">{children}</body>
+      <body className="bg-[#eeeeee] text-gray-800">{children}</body>
     </html>
   );
 }

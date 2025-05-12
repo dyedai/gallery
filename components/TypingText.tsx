@@ -54,7 +54,7 @@ export function TypingText({ textArray, typeSpeed = 110, cursorSpeed = 550, paus
   }, [cursorSpeed]);
 
   return (
-    <p className={`text-2x leading-tight justify-center ${className}`}>
+    <p className={`leading-tight justify-center ${className}`}>
       {text}
       <span className={`inline-block w-[1px] h-4 bg-gray-700 ml-1 transition-opacity ${showCursor ? "opacity-100" : "opacity-0"}`} />
     </p>
