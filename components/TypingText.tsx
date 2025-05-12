@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface TypingTextProps {
   textArray: string[];
@@ -17,61 +17,46 @@ export function TypingText({ textArray, typeSpeed = 110, cursorSpeed = 550, paus
   const [charIndex, setCharIndex] = useState(0);
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
   const [showCursor, setShowCursor] = useState(true);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const startTyping = () => {
-      const current = textArray[textIndex];
+    const currentText = textArray[textIndex];
 
-      if (charIndex > current.length) {
-        setDirection("backward");
-        clearInterval(intervalRef.current!);
-        intervalRef.current = setTimeout(() => {
-          intervalRef.current = setInterval(startTyping, typeSpeed);
-        }, pauseEnd) as unknown as NodeJS.Timeout;
-        return;
-      }
-
+    const handleTyping = () => {
       if (direction === "forward") {
-        setText(current.substring(0, charIndex));
-        setCharIndex((prev) => prev + 1);
-      } else {
-        if (charIndex === 0) {
-          setDirection("forward");
-          clearInterval(intervalRef.current!);
-          intervalRef.current = setTimeout(() => {
-            setTextIndex((prev) => (prev + 1) % textArray.length);
-            intervalRef.current = setInterval(startTyping, typeSpeed);
-          }, pauseStart) as unknown as NodeJS.Timeout;
+        if (charIndex <= currentText.length) {
+          setText(currentText.slice(0, charIndex));
+          setCharIndex((prev) => prev + 1);
         } else {
-          setText(current.substring(0, charIndex));
+          setTimeout(() => setDirection("backward"), pauseEnd);
+        }
+      } else {
+        if (charIndex > 0) {
+          setText(currentText.slice(0, charIndex));
           setCharIndex((prev) => prev - 1);
+        } else {
+          setTimeout(() => {
+            setDirection("forward");
+            setTextIndex((prev) => (prev + 1) % textArray.length);
+          }, pauseStart);
         }
       }
     };
 
-    intervalRef.current = setInterval(startTyping, typeSpeed);
-
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [textIndex, charIndex, direction, textArray, typeSpeed, pauseEnd, pauseStart]);
+    const interval = setInterval(handleTyping, typeSpeed);
+    return () => clearInterval(interval);
+  }, [charIndex, direction, textIndex, textArray, typeSpeed, pauseEnd, pauseStart]);
 
   useEffect(() => {
-    const blink = setInterval(() => {
+    const cursorBlink = setInterval(() => {
       setShowCursor((prev) => !prev);
     }, cursorSpeed);
-    return () => clearInterval(blink);
+    return () => clearInterval(cursorBlink);
   }, [cursorSpeed]);
 
   return (
-    <div className="flex items-center justify-center mx-auto text-center max-w-7xl">
-      <div className="relative flex items-center justify-center h-auto">
-        <p className={`text-2xl font-black leading-tight ${className}`}>
-          {text}
-          <span className={`inline-block w-[2px] h-6 bg-black ml-1 transition-opacity ${showCursor ? "opacity-100" : "opacity-0"}`} />
-        </p>
-      </div>
-    </div>
+    <p className={`text-2x leading-tight justify-center ${className}`}>
+      {text}
+      <span className={`inline-block w-[1px] h-4 bg-gray-700 ml-1 transition-opacity ${showCursor ? "opacity-100" : "opacity-0"}`} />
+    </p>
   );
 }

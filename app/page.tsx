@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ParticleImage } from "../components/particle-image";
 import { X } from "lucide-react";
 import { AnimatedHeadline } from "../components/AnimatedHeadline";
+import { TypingText } from "../components/TypingText";
 
 // 画像データの配列（プレースホルダー画像を使用）
 const images = Array.from({ length: 20 }, (_, i) => ({
@@ -26,11 +27,18 @@ export default function Home() {
         <motion.h1 initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-6xl font-dela mb-12 tracking-tight">
           記憶によって形成される風景
         </motion.h1>
+
         {/* <AnimatedHeadline text="記憶によって形成される風景" className="text-5xl md:text-6xl font-dela mb-12" /> */}
 
-        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.3 }} className="text-lg text-gray-700 leading-relaxed max-w-xl">
-          主に音の記憶を可視化する作品を制作しています。 かつてその場に存在した音—人の声、足音、風や波の響き—を、粒子状の光として表現し、 空間に残された気配や痕跡を静かに描き出します。
-        </motion.p>
+        <TypingText
+          textArray={[
+            "主に音の記憶を可視化する作品を制作しています。",
+            "かつてその場に存在した音—人の声、足音、風や波の響き—を、粒子状の光として表現し、",
+            "空間に残された気配や痕跡を静かに描き出します。",
+            "「記憶によって形成される風景」をテーマに活動を展開しています。",
+          ]}
+          className="text-lg text-gray-700 leading-relaxed"
+        />
       </header>
 
       {/* ギャラリーセクション */}
